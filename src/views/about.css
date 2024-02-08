@@ -1,0 +1,62 @@
+.about-container {
+    background-color: black;
+}
+
+.about-us {
+    max-width:1000px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .background-image {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+  }
+  
+  .background-image::before {
+    content: '';
+    background-image: url("https://yt3.googleusercontent.com/B73psEU50URV1uw23NuCjiFO5IYMP_4Y7H2E5fVOR3sjhPucoTYC9XqMjZST7z4WtIui5zOYnj4=s900-c-k-c0x00ffffff-no-rj");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+  }
+
+  .about-us-text {
+    padding-right: 10%;
+    padding-left: 10%;
+    padding-top: 0%;
+    padding-bottom: 0%;
+  }
+  
+  .background-overlay {
+    background-color: rgba(0, 0, 0, 0.7);
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+  }
+
+  .instagram-profile-container {
+    position: relative;
+    padding-top: 10%;
+  }
+
+  @media (min-width: 585px) {
+    .instagram-profile-container {
+      padding: 5% 20% 20% 20%;
+    }
+  }
+  
+  .background-image h1,
+  .background-image p {
+    position: relative;
+    color: #fff;
+  }
+  
