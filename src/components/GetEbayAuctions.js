@@ -18,7 +18,7 @@ export const getSellerCurrentAuctions = async () => {
     if (!token) {
       console.log('fetching new token')
       // Retrieve eBay OAuth token from backend
-      const response = await axios.get(`http://localhost:5000/get-token`);
+      const response = await axios.get(`https://hypernovasportscards-e6663f71b745.herokuapp.com/get-token`);
     
       // Check if response is successful
       if (response.status !== 200) {
