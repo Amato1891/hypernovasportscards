@@ -12,6 +12,28 @@ app.use(cors());
 // Serve static files from the build folder
 app.use(express.static(path.join(__dirname, 'client/build')));
 
+app.get('/get-token', async (req, res) => {
+  console.log('getting token')
+  try {
+    // Create a new instance of EbayAuthToken
+    const ebayAuthToken = new EbayAuthToken({
+      clientId: process.env.REACT_APP_EBAY_CLIENT_ID,
+      clientSecret: process.env.REACT_APP_EBAY_CLIENT_SECRET,
+      redirectUri: 'https://www.hypernovasportscards.com/'
+    });
+    // Get the eBay OAuth token
+    const token = await ebayAuthToken.getApplicationToken('PRODUCTION');
+    // Send the token in the response
+    res.json({ token });
+    return token;
+  } catch (error) {
+    // Log the error
+    console.error('Error obtaining eBay OAuth token:', error);
+    // Send an error response
+    res.status(500).json({ error: 'Failed to obtain eBay OAuth token' });
+  }
+});
+
 // Define the target URL for the eBay API
 const ebayApiUrl = 'https://api.ebay.com';
 
@@ -27,27 +49,7 @@ const ebayProxy = createProxyMiddleware({
 // Use the proxy middleware for requests to '/api/ebay'
 app.use('/api/ebay', ebayProxy);
 
-app.get('/get-token', async (req, res) => {
-    console.log('getting token')
-    try {
-      // Create a new instance of EbayAuthToken
-      const ebayAuthToken = new EbayAuthToken({
-        clientId: process.env.REACT_APP_EBAY_CLIENT_ID,
-        clientSecret: process.env.REACT_APP_EBAY_CLIENT_SECRET,
-        redirectUri: 'https://www.hypernovasportscards.com/'
-      });
-      // Get the eBay OAuth token
-      const token = await ebayAuthToken.getApplicationToken('PRODUCTION');
-      // Send the token in the response
-      res.json({ token });
-      return token;
-    } catch (error) {
-      // Log the error
-      console.error('Error obtaining eBay OAuth token:', error);
-      // Send an error response
-      res.status(500).json({ error: 'Failed to obtain eBay OAuth token' });
-    }
-  });
+
 
 // Start the server
 const port = process.env.PORT || 5000;
