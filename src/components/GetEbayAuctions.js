@@ -33,8 +33,9 @@ export const getSellerCurrentAuctions = async () => {
       apiToken = token;
     }
     const url = process.env.NODE_ENV === 'production' ? ebayApiUrl : proxyUrl;
+    console.log(`${process.env.NODE_ENV} ENV detected.`)
     // Make request to eBay API using the retrieved token
-    const ebayApiResponse = await axios.get(url, {
+    const ebayApiResponse = await axios.get(ebayApiUrl, {
       params: {
         q: 'cards',
         filter: `sellers:{${sellerUsername}}`,
