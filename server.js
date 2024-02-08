@@ -4,9 +4,13 @@ const cors = require('cors');
 const EbayAuthToken = require('ebay-oauth-nodejs-client');
 require('dotenv').config()
 const app = express();
+const path = require('path');
 
 // Enable CORS middleware
 app.use(cors());
+
+// Serve static files from the build folder
+app.use(express.static(path.join(__dirname, 'client/build')));
 
 // Define the target URL for the eBay API
 const ebayApiUrl = 'https://api.ebay.com';
