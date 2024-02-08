@@ -4,7 +4,8 @@ import Cookies from 'js-cookie';
 
 export const getSellerCurrentAuctions = async () => {
   const sellerUsername = 'hypernovasportscards';
-  const proxyUrl = 'https://hypernovasportscards-e6663f71b745.herokuapp.com';
+  const proxyUrl = 'http://localhost:5000/api/ebay/buy/browse/v1/item_summary/search';
+  const ebayApiUrl = 'https://api.ebay.com/buy/browse/v1/item_summary/search';
   const token = Cookies.get('ebay_token');
   // Calculate expiration time in hours (4 hours)
   const expirationHours = 2;
@@ -17,7 +18,7 @@ export const getSellerCurrentAuctions = async () => {
     if (!token) {
       console.log('fetching new token')
       // Retrieve eBay OAuth token from backend
-      const response = await axios.get(`https://hypernovasportscards-e6663f71b745.herokuapp.com/get-token`);
+      const response = await axios.get(`http://localhost:5000/get-token`);
     
       // Check if response is successful
       if (response.status !== 200) {
@@ -31,9 +32,9 @@ export const getSellerCurrentAuctions = async () => {
       console.log('using token from cookie')
       apiToken = token;
     }
-
+    const url = process.env.NODE_ENV === 'production' ? ebayApiUrl : proxyUrl;
     // Make request to eBay API using the retrieved token
-    const ebayApiResponse = await axios.get(`${proxyUrl}/api/ebay/buy/browse/v1/item_summary/search`, {
+    const ebayApiResponse = await axios.get(url, {
       params: {
         q: 'cards',
         filter: `sellers:{${sellerUsername}}`,

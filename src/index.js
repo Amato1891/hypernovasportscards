@@ -19,7 +19,6 @@ const App = () => {
         <Route component={LandingPage} exact path="/" />
         <Route component={About} path="/about" />
         <Route component={NotFound} path="**" />
-        <Redirect to="**" />
       </Switch>
     </Router>
   )
