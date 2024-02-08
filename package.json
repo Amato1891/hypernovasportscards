@@ -27,7 +27,8 @@
     "start": "react-scripts start --config-overrides=config-overrides.js",
     "build": "react-scripts build --config-overrides=config-overrides.js",
     "test": "react-scripts test --config-overrides=config-overrides.js",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix hypernovasportscards && npm run build --prefix hypernovasportscards"
   },  
   "engines": {
     "node": "18.x"
