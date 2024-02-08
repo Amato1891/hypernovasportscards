@@ -9,8 +9,13 @@ const path = require('path');
 // Enable CORS middleware
 app.use(cors());
 
-// Serve static files from the build folder
-app.use(express.static(path.join(__dirname, 'client/build')));
+if(process.env.NODE_ENV === 'production') {
+  app.use(express.static('hypernovasportscards/build'));
+
+  app.get('*', (req,res) => {
+      res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  });
+}
 
 app.get('/get-token', async (req, res) => {
   console.log('getting token')
