@@ -24,11 +24,11 @@
     "util": "^0.12.5"
   },
   "scripts": {
-    "start": "craco start",
-    "build": "craco build",
-    "test": "craco test --env=jsdom",
-    "eject": "craco eject"
-  },
+    "start": "react-scripts start --config-overrides=config-overrides.js",
+    "build": "react-scripts build --config-overrides=config-overrides.js",
+    "test": "react-scripts test --config-overrides=config-overrides.js",
+    "eject": "react-scripts eject"
+  },  
   "engines": {
     "node": "18.x"
   },
