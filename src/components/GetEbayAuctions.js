@@ -4,7 +4,7 @@ import Cookies from 'js-cookie';
 
 export const getSellerCurrentAuctions = async () => {
   const sellerUsername = 'hypernovasportscards';
-  const proxyUrl = 'http://localhost:5000';
+  const proxyUrl = 'https://hypernovasportscards-e6663f71b745.herokuapp.com';
   const token = Cookies.get('ebay_token');
   // Calculate expiration time in hours (4 hours)
   const expirationHours = 2;
@@ -17,7 +17,7 @@ export const getSellerCurrentAuctions = async () => {
     if (!token) {
       console.log('fetching new token')
       // Retrieve eBay OAuth token from backend
-      const response = await axios.get(`http://localhost:5000/get-token`);
+      const response = await axios.get(`https://hypernovasportscards-e6663f71b745.herokuapp.com/get-token`);
     
       // Check if response is successful
       if (response.status !== 200) {
