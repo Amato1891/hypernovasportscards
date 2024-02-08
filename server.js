@@ -23,6 +23,8 @@ app.get('/get-token', async (req, res) => {
     });
     // Get the eBay OAuth token
     const token = await ebayAuthToken.getApplicationToken('PRODUCTION');
+    console.log('CREATED TOKEN')
+    console.log(token)
     // Send the token in the response
     res.json({ token });
     return token;
