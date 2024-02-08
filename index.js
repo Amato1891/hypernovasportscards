@@ -36,6 +36,10 @@ app.get('/get-token', async (req, res) => {
   }
 });
 
+app.get('/getToken', async (req, res) => { 
+  res.json({ name:'Jim' });
+});
+
 // Define the target URL for the eBay API
 const ebayApiUrl = 'https://api.ebay.com';
 
