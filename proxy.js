@@ -8,20 +8,20 @@ const app = express();
 // Enable CORS middleware
 app.use(cors());
 
-// Define the target URL for the eBay API
-const ebayApiUrl = 'https://api.ebay.com';
+// // Define the target URL for the eBay API
+// const ebayApiUrl = 'https://api.ebay.com';
 
-// Create a proxy middleware instance
-const ebayProxy = createProxyMiddleware({
-  target: ebayApiUrl,
-  changeOrigin: true, // Needed for virtual hosted sites
-  pathRewrite: {
-    '^/api/ebay': '', // Remove '/api/ebay' from the beginning of URL path
-  },
-});
+// // Create a proxy middleware instance
+// const ebayProxy = createProxyMiddleware({
+//   target: ebayApiUrl,
+//   changeOrigin: true, // Needed for virtual hosted sites
+//   pathRewrite: {
+//     '^/api/ebay': '', // Remove '/api/ebay' from the beginning of URL path
+//   },
+// });
 
-// Use the proxy middleware for requests to '/api/ebay'
-app.use('/api/ebay', ebayProxy);
+// // Use the proxy middleware for requests to '/api/ebay'
+// app.use('/api/ebay', ebayProxy);
 
 app.get('/get-token', async (req, res) => {
     console.log('getting token')
