@@ -14,6 +14,42 @@
   border-radius: 8px;
   overflow: hidden;
 }
+
+.skeleton-loading {
+  background-color: #b4b4b4;
+  animation: skeleton-loading-animation 1.5s infinite ease-in-out;
+}
+
+@keyframes skeleton-loading-animation {
+  0% { opacity: 0.5; }
+  50% { opacity: 1; }
+  100% { opacity: 0.5; }
+}
+
+.place-card-container1-skeleton-loading {
+  width: 100%;
+  border-radius: 8px;
+  display: flex;
+  padding: var(--dl-space-space-unit);
+  align-items: center;
+  flex-direction: column;
+  background-color: #f0f0f0;
+}
+
+.skeleton-loading-line {
+  width: 80%;
+  height: 10px;
+  margin-bottom: 8px;
+  background-color: #b4b4b4;
+  animation: skeleton-loading-flashing 1.5s infinite ease-in-out;
+}
+
+@keyframes skeleton-loading-flashing {
+  0% { opacity: 0.5; }
+  50% { opacity: 1; }
+  100% { opacity: 0.5; }
+}
+
 .place-card-container1 {
   width: 100%;
   display: flex;

@@ -8,27 +8,35 @@ import './place-card.css'
 const PlaceCard = (props) => {
   return (
     <div className="place-card-container">
-      <img
-        alt={props.imageAlt}
-        src={props.image}
-        className="place-card-image"
-      />
-      <div className="place-card-container1">
+      {props.image ? (
+        <img src={props.image} alt={props.imageAlt} className="place-card-image" />
+      ) : (
+        <div className="place-card-image skeleton-loading"></div>
+      )}
+      {props.description ? (
+        <>
+        <div className="place-card-container1 ">
         <span className="place-card-text">{props.price}</span>
         <span className="place-card-text1">{props.description}</span>
         <OutlineButton button1="See it on" href= {props.href}></OutlineButton>
-      </div>
+        </div>
+        </>
+      ) : (
+        <div className="place-card-container1-skeleton-loading">
+        <div className="skeleton-loading-line"></div>
+        <div className="skeleton-loading-line"></div>
+        <div className="skeleton-loading-line"></div>
+        </div>
+      )}
+        
     </div>
   )
 }
 
 PlaceCard.defaultProps = {
-  image:
-    'https://images.unsplash.com/photo-1514924013411-cbf25faa35bb?ixlib=rb-1.2.1&q=85&fm=jpg&crop=entropy&cs=srgb&w=1000',
-  imageAlt: 'image',
-  city: 'City Name',
+  price: '',
   description:
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.',
+    '',
   href: 'https://www.google.com'
 }
 
