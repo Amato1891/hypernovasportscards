@@ -6,7 +6,7 @@ export const getSellerCurrentAuctions = async () => {
   const sellerUsername = 'hypernovasportscards';
   const proxyUrl = 'http://localhost:5000/api/ebay/buy/browse/v1/item_summary/search';
   const localTokenUrl = 'http://localhost:5000';
-  const prodTokenUrl = 'https://hypernovasportscards-e6663f71b745.herokuapp.com/';
+  const prodTokenUrl = 'https://hypernovasportscards-e6663f71b745.herokuapp.com';
   const ebayApiUrl = 'https://api.ebay.com/buy/browse/v1/item_summary/search';
   const token = Cookies.get('ebay_token');
   // Calculate expiration time in hours (4 hours)
