@@ -28,25 +28,31 @@ const getLiveStreams = async () => {
   };
   
   try {
-    const data = JSON.stringify({
-      "operationName": "GetUserLiveStreams",
-      "variables": {
-        "first": 6,
-        "userId": "445336"
-      },
-      "query": "query GetUserLiveStreams($userId: ID!, $first: Int = 6) {\n  searchLivestreams(userIds: [$userId], first: $first) {\n    edges {\n      node {\n        ... on LiveStream {\n          id\n          status\n          trailerUrl\n          trailerThumbnailUrl\n          thumbnail {\n            id\n            url\n            __typename\n          }\n          livestreamPromotion {\n            id\n            status\n            __typename\n          }\n          adCampaign {\n            id\n            status\n            __typename\n          }\n          title\n          startTime\n          activeViewers\n          categories\n          categoryNodes {\n            id\n            label\n            type\n            parent {\n              label\n              type\n              __typename\n            }\n            __typename\n          }\n          isUserOnWatchlist\n          totalWatchlistUsers\n          shippingSourceCountryCode\n          user {\n            id\n            username\n            isVerifiedSeller\n            sellerRating {\n              overall\n              shipping\n              packaging\n              accuracy\n              numReviews\n              __typename\n            }\n            profileImage {\n              id\n              bucket\n              key\n              __typename\n            }\n            __typename\n          }\n          __typename\n        }\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n  getCategories {\n    type\n    label\n    __typename\n  }\n}"
-    });
+    // const data = JSON.stringify({
+    //   "operationName": "GetUserLiveStreams",
+    //   "variables": {
+    //     "first": 6,
+    //     "userId": "445336"
+    //   },
+    //   "query": "query GetUserLiveStreams($userId: ID!, $first: Int = 6) {\n  searchLivestreams(userIds: [$userId], first: $first) {\n    edges {\n      node {\n        ... on LiveStream {\n          id\n          status\n          trailerUrl\n          trailerThumbnailUrl\n          thumbnail {\n            id\n            url\n            __typename\n          }\n          livestreamPromotion {\n            id\n            status\n            __typename\n          }\n          adCampaign {\n            id\n            status\n            __typename\n          }\n          title\n          startTime\n          activeViewers\n          categories\n          categoryNodes {\n            id\n            label\n            type\n            parent {\n              label\n              type\n              __typename\n            }\n            __typename\n          }\n          isUserOnWatchlist\n          totalWatchlistUsers\n          shippingSourceCountryCode\n          user {\n            id\n            username\n            isVerifiedSeller\n            sellerRating {\n              overall\n              shipping\n              packaging\n              accuracy\n              numReviews\n              __typename\n            }\n            profileImage {\n              id\n              bucket\n              key\n              __typename\n            }\n            __typename\n          }\n          __typename\n        }\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n  getCategories {\n    type\n    label\n    __typename\n  }\n}"
+    // });
 
-    const config = {
-      method: 'post',
-      url: 'https://api.whatnot.com/graphql/?operationName=GetUserLiveStreams',
-      headers: {
-        'Content-Type': 'application/json',
-        'apollographql-client-name': 'web'
-      },
-      data: data
-    };
-    const response = await axios(config);
+    // const config = {
+    //   method: 'post',
+    //   url: 'https://api.whatnot.com/graphql/?operationName=GetUserLiveStreams',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //     'apollographql-client-name': 'web'
+    //   },
+    //   data: data
+    // };
+    // Your client-side application code
+    const devUrl = 'http://localhost:5000/graphql';
+    const prodUrl = 'https://hypernovasportscards-e6663f71b745.herokuapp.com';
+    const url = process.env.NODE_ENV === 'production' ? prodUrl : devUrl;
+
+    // Make requests to your proxy server
+    const response = await axios.get(`${url}/graphql`);
 
     if (![200, 201, 202].includes(response.status)) {
       console.error(`ERROR: Received HTTP code ${response.status}`);

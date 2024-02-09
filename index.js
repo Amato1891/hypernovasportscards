@@ -5,6 +5,7 @@ const EbayAuthToken = require('ebay-oauth-nodejs-client');
 require('dotenv').config()
 const app = express();
 const path = require('path');
+const axios = require('axios');
 
 // Enable CORS middleware
 app.use(cors());
@@ -30,6 +31,35 @@ app.get('/get-token', async (req, res) => {
     console.error('Error obtaining eBay OAuth token:', error);
     // Send an error response
     res.status(500).json({ error: 'Failed to obtain eBay OAuth token' });
+  }
+});
+
+app.get('/graphql', async (req, res) => {
+  try {
+    const data = JSON.stringify({
+      "operationName": "GetUserLiveStreams",
+      "variables": {
+        "first": 6,
+        "userId": "445336"
+      },
+      "query": "query GetUserLiveStreams($userId: ID!, $first: Int = 6) {\n  searchLivestreams(userIds: [$userId], first: $first) {\n    edges {\n      node {\n        ... on LiveStream {\n          id\n          status\n          trailerUrl\n          trailerThumbnailUrl\n          thumbnail {\n            id\n            url\n            __typename\n          }\n          livestreamPromotion {\n            id\n            status\n            __typename\n          }\n          adCampaign {\n            id\n            status\n            __typename\n          }\n          title\n          startTime\n          activeViewers\n          categories\n          categoryNodes {\n            id\n            label\n            type\n            parent {\n              label\n              type\n              __typename\n            }\n            __typename\n          }\n          isUserOnWatchlist\n          totalWatchlistUsers\n          shippingSourceCountryCode\n          user {\n            id\n            username\n            isVerifiedSeller\n            sellerRating {\n              overall\n              shipping\n              packaging\n              accuracy\n              numReviews\n              __typename\n            }\n            profileImage {\n              id\n              bucket\n              key\n              __typename\n            }\n            __typename\n          }\n          __typename\n        }\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n  getCategories {\n    type\n    label\n    __typename\n  }\n}"
+    });
+
+    const config = {
+      method: 'post',
+      url: 'https://api.whatnot.com/graphql/?operationName=GetUserLiveStreams',
+      headers: {
+        'Content-Type': 'application/json',
+        'apollographql-client-name': 'web'
+      },
+      data: data
+    };
+    const response = await axios(config);
+
+    res.json(response.data);
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 });
 
