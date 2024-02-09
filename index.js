@@ -43,12 +43,6 @@ const ebayProxy = createProxyMiddleware({
   pathRewrite: {
     '^/api/ebay': '', // Remove '/api/ebay' from the beginning of URL path
   },
-  onProxyRes: function(proxyRes, req, res) {
-    // Add CORS headers to the response from eBay API
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-  },
 });
 
 // Use the proxy middleware for requests to '/api/ebay'

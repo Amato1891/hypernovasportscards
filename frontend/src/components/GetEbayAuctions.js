@@ -30,7 +30,6 @@ export const getSellerCurrentAuctions = async () => {
       if (response.status !== 200) {
         throw new Error('Failed to retrieve eBay OAuth token');
       }
-
       // Extract the token from the response data
       apiToken = response.data.token;
       Cookies.set('ebay_token', apiToken, { expires: expirationDate });
