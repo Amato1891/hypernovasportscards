@@ -15,12 +15,12 @@ const LandingPage = (props) => {
   // Calculate expiration date
   const expirationDate = new Date();
   expirationDate.setTime(expirationDate.getTime() + (expirationHours * 60 * 60 * 1000));
-  const defaultStreamData = {
-    description: "No Upcoming Streams Found. Tap to find out more.",
-    href: "https://www.whatnot.com/user/hypernovasports",
-    image: "hypernova_img.png",
-    time: "?????"
-  };
+  // const defaultStreamData = {
+  //   description: "No Upcoming Streams Found. Tap to find out more.",
+  //   href: "https://www.whatnot.com/user/hypernovasports",
+  //   image: "hypernova_img.png",
+  //   time: "?????"
+  // };
   const cardsCookieValue = Cookies.get('top_ebay_auctions_hypernovasportscards');
   const initialCardDataValue = cardsCookieValue && cardsCookieValue !== "undefined" ? JSON.parse(cardsCookieValue) : [];
   const streamLocalStorageValue  = localStorage.getItem('stream_data_hypernovasportscards');
@@ -30,14 +30,14 @@ const LandingPage = (props) => {
     let data = JSON.parse(streamLocalStorageValue);
     initialStreamData = JSON.parse(data.data);
   } else {
-    initialStreamData = [defaultStreamData];
+    initialStreamData = [];
   }
 
   const [streamData, setStreamData] = useState(initialStreamData);
   const [topCards, setTopCards] = useState(initialCardDataValue);
 
   // check if we are using default streaming data
-  const isUsingDefaultData = JSON.stringify(streamData) === JSON.stringify([defaultStreamData]);
+  const isUsingDefaultData = JSON.stringify(streamData) === JSON.stringify([]);
 
   useEffect(() => {
     const fetchData = async () => {

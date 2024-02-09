@@ -2,6 +2,15 @@ import React, { useState, useEffect } from 'react';
 import './Carousel.css';
 
 const Carousel = ({ items }) => {
+  const defaultStreamData = {
+    description: "No Upcoming Streams Found. Tap to find out more.",
+    href: "https://www.whatnot.com/user/hypernovasports",
+    image: "hypernova_img.png",
+    time: "?????"
+  };
+  // set default data if no data is passed in
+  items = items.length === 0 ? [defaultStreamData] : items;
+
   return (
     <div className="carousel-container">
       <div className="carousel">
