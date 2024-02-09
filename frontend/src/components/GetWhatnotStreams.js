@@ -48,8 +48,8 @@ const getLiveStreams = async () => {
     };
     const response = await axios(config);
 
-    if (response.status !== 200 || response.status !== 201 || response.status !== 202) {
-      console.error (`ERROR: Recieved http code ${response.status}`)
+    if (![200, 201, 202].includes(response.status)) {
+      console.error(`ERROR: Received HTTP code ${response.status}`);
       return;
     }
 
