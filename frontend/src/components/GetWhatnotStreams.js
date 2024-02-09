@@ -48,6 +48,11 @@ const getLiveStreams = async () => {
     };
     const response = await axios(config);
 
+    if (response.status !== 200 || response.status !== 201 || response.status !== 202) {
+      console.error (`ERROR: Recieved http code ${response.status}`)
+      return;
+    }
+
     const upcomingStreams = response.data.data.searchLivestreams.edges.map(edge => {
       const streamNode = edge.node;
       return {
