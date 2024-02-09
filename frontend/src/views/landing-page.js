@@ -25,10 +25,10 @@ const LandingPage = (props) => {
   const initialCardDataValue = cardsCookieValue && cardsCookieValue !== "undefined" ? JSON.parse(cardsCookieValue) : [];
   const streamLocalStorageValue  = localStorage.getItem('stream_data_hypernovasportscards');
   let initialStreamData;
-  // set the initialStreamData value
-  if (streamLocalStorageValue) {
-    let data = JSON.parse(streamLocalStorageValue);
-    initialStreamData = JSON.parse(data.data);
+
+  if (streamLocalStorageValue && streamLocalStorageValue != "undefined") {
+  let data = JSON.parse(streamLocalStorageValue);
+  initialStreamData = JSON.parse(data.data);
   } else {
     initialStreamData = [];
   }
