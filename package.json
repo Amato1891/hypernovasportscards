@@ -1,53 +1,20 @@
 {
-  "name": "travel-agency",
+  "name": "hypernovasportscards_server",
   "version": "1.0.0",
-  "private": true,
+  "description": "hypernovasportscards WebServer",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend"
+  },
+  "author": "Jim Amato",
+  "license": "MIT",
   "dependencies": {
-    "@craco/craco": "^7.0.0-alpha.0",
-    "axios": "^1.6.7",
     "cors": "^2.8.5",
     "dotenv": "^16.4.1",
     "ebay-oauth-nodejs-client": "^1.2.2",
     "express": "^4.18.2",
-    "express-session": "^1.18.0",
     "http-proxy-middleware": "^2.0.6",
-    "js-cookie": "^3.0.5",
-    "path-browserify": "^1.0.1",
-    "prop-types": "15.7.2",
-    "querystring": "^0.2.1",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-helmet": "^6.1.0",
-    "react-instagram-embed": "^3.0.0",
-    "react-router-dom": "^5.2.0",
-    "react-social-media-embed": "^2.4.1",
-    "util": "^0.12.5"
-  },
-  "scripts": {
-    "start": "react-scripts start --config-overrides=config-overrides.js",
-    "build": "react-scripts build --config-overrides=config-overrides.js",
-    "test": "react-scripts test --config-overrides=config-overrides.js",
-    "eject": "react-scripts eject",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install && npm run build"
-  },  
-  "engines": {
-    "node": "18.x"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "devDependencies": {
-    "@babel/plugin-transform-private-property-in-object": "^7.23.4",
-    "@pmmmwh/react-refresh-webpack-plugin": "^0.5.11",
-    "react-scripts": "^5.0.1"
+    "path": "^0.12.7"
   }
 }
