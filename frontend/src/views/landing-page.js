@@ -63,7 +63,7 @@ const [topCards, setTopCards] = useState(initialState);
     <div className="landing-page-container">
       <Helmet>
         <title>Hypernova Sportscards</title>
-        <meta property="og:title" content="Travel Agency" />
+        <meta property="og:title" content="Hypernovasportscards" />
       </Helmet>
       <div className="landing-page-top-container">
         <Navbar/>
