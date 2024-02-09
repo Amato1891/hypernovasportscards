@@ -8,9 +8,10 @@ const Carousel = ({ items }) => {
     image: "hypernova_img.png",
     time: "?????"
   };
-  // set default data if no data is passed in
-  items = items.length === 0 ? [defaultStreamData] : items;
 
+  items = (items == undefined || items == null) ? [] : items;
+  // set default data if no data is passed in
+  items = (items && items.length === 0) ? [defaultStreamData] : items;
   return (
     <div className="carousel-container">
       <div className="carousel">
