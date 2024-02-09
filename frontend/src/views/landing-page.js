@@ -6,6 +6,8 @@ import './landing-page.css'
 import {getSellerCurrentAuctions} from '../components/GetEbayAuctions'
 import PlaceCardList from '../components/PlaceCardList';
 import Cookies from 'js-cookie';
+import {getUpcomingStreams} from '../components/GetWhatnotStreams';
+import Carousel from '../components/LiveStreamCarousel';
 
 const LandingPage = (props) => {
   // Calculate expiration time in hours (.25 hours)
@@ -13,10 +15,29 @@ const LandingPage = (props) => {
   // Calculate expiration date
   const expirationDate = new Date();
   expirationDate.setTime(expirationDate.getTime() + (expirationHours * 60 * 60 * 1000));
+  const defaultStreamData = {
+    description: "No Upcoming Streams Found. Tap to find out more.",
+    href: "https://www.whatnot.com/user/hypernovasports",
+    image: "hypernova_img.png",
+    time: "?????"
+  };
+  const cardsCookieValue = Cookies.get('top_ebay_auctions_hypernovasportscards');
+  const initialCardDataValue = cardsCookieValue && cardsCookieValue !== "undefined" ? JSON.parse(cardsCookieValue) : [];
+  const streamLocalStorageValue  = localStorage.getItem('stream_data_hypernovasportscards');
+  let initialStreamData;
+  // set the initialStreamData value
+  if (streamLocalStorageValue) {
+    let data = JSON.parse(streamLocalStorageValue);
+    initialStreamData = JSON.parse(data.data);
+  } else {
+    initialStreamData = [defaultStreamData];
+  }
 
-const cookieValue = Cookies.get('top_ebay_auctions_hypernovasportscards');
-const initialState = cookieValue && cookieValue !== "undefined" ? JSON.parse(cookieValue) : [];
-const [topCards, setTopCards] = useState(initialState);
+  const [streamData, setStreamData] = useState(initialStreamData);
+  const [topCards, setTopCards] = useState(initialCardDataValue);
+
+  // check if we are using default streaming data
+  const isUsingDefaultData = JSON.stringify(streamData) === JSON.stringify([defaultStreamData]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -47,15 +68,37 @@ const [topCards, setTopCards] = useState(initialState);
         })
         setTopCards(formattedArray);
         const dataArrayToString = JSON.stringify (formattedArray);
-        console.log('data fetched and cookie set')
         Cookies.set('top_ebay_auctions_hypernovasportscards', dataArrayToString, { expires: expirationDate });
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
+
+    const fetchLiveStreams = async () => {
+      const expirationDuration = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
+      const expirationDate = new Date(Date.now() + expirationDuration);
+      try {
+      const liveStreamData = await getUpcomingStreams ();
+      const liveStreamStringData = JSON.stringify (liveStreamData);
+      setStreamData (liveStreamData);
+      const data = {
+        data: JSON.stringify(liveStreamData),
+        expirationDate: expirationDate.getTime()
+      };
+      localStorage.setItem('stream_data_hypernovasportscards', JSON.stringify(data));
+      return liveStreamData
+      } catch (error) {
+        console.error (`Got an error while fetching live streams ${error}`)
+      }
+    }
+    
+    // get top auction data from ebay
     if (topCards.length < 1) {
-      console.log('no recent data stored, fetching new data')
       fetchData();
+    }
+    // get streaming data from whatnot
+    if (isUsingDefaultData) {
+      fetchLiveStreams ();
     }
   }, []);
 
@@ -87,8 +130,10 @@ const [topCards, setTopCards] = useState(initialState);
         </div>
       </div>
       <div id="main-section" className="landing-page-main">
-        <h1></h1>
-        <span className="landing-page-text15">🔥🔥🔥 Hot Inventory 🔥🔥🔥</span>
+        <span className="landing-page-text15">🎥 Upcoming Streams 🎥</span>
+        <Carousel items={streamData} />
+        <br/>
+        <span className="landing-page-text15">🔥 Hot Inventory 🔥</span>
         <div className="landing-page-cards-container">
         <PlaceCardList cardData={topCards} />
         </div>

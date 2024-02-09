@@ -1,0 +1,16 @@
+.carousel-container {
+    position: relative;
+    width: 100%;
+    height: 40vh;
+    overflow-x: auto;
+    overflow-y: hidden;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  
+  .carousel {
+    display: flex;
+  }
+  
+  
