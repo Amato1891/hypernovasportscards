@@ -27,8 +27,8 @@ const LandingPage = (props) => {
   let initialStreamData;
 
   if (streamLocalStorageValue && streamLocalStorageValue != "undefined") {
-  let data = JSON.parse(streamLocalStorageValue);
-  initialStreamData = JSON.parse(data.data);
+    let data = JSON.parse(streamLocalStorageValue);
+    initialStreamData = data && data.data ? JSON.parse(data.data) : [];
   } else {
     initialStreamData = [];
   }
