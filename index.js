@@ -9,15 +9,6 @@ const path = require('path');
 // Enable CORS middleware
 app.use(cors());
 
-console.log(`${process.env.NODE_ENV} ENV DETECTED ON SERVER`)
-if(process.env.NODE_ENV === 'production') {
-  app.use(express.static('frontend/build'));
-
-  app.get('*', (req,res) => {
-      res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
-  });
-}
-
 app.get('/get-token', async (req, res) => {
   console.log('getting token')
   try {
@@ -61,7 +52,14 @@ const ebayProxy = createProxyMiddleware({
 // Use the proxy middleware for requests to '/api/ebay'
 app.use('/api/ebay', ebayProxy);
 
+console.log(`${process.env.NODE_ENV} ENV DETECTED ON SERVER`)
+if(process.env.NODE_ENV === 'production') {
+  app.use(express.static('frontend/build'));
 
+  app.get('*', (req,res) => {
+      res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  });
+}
 
 // Start the server
 const port = process.env.PORT || 5000;
