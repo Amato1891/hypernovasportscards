@@ -10,25 +10,31 @@ import {getUpcomingStreams} from '../components/GetWhatnotStreams';
 import Carousel from '../components/LiveStreamCarousel';
 
 const LandingPage = (props) => {
+  // cookie and local storage cache time control
   // Calculate expiration time in hours (.25 hours)
   const expirationHours = .25;
   // Calculate expiration date
   const expirationDate = new Date();
   expirationDate.setTime(expirationDate.getTime() + (expirationHours * 60 * 60 * 1000));
-  // const defaultStreamData = {
-  //   description: "No Upcoming Streams Found. Tap to find out more.",
-  //   href: "https://www.whatnot.com/user/hypernovasports",
-  //   image: "hypernova_img.png",
-  //   time: "?????"
-  // };
+  const checkExpiration= (timestamp) => {
+    const currentTime = Date.now();
+    const fifteenMinutesInMilliseconds = 15 * 60 * 1000;
+    if (currentTime - timestamp >= fifteenMinutesInMilliseconds) {
+      return 'expired';
+    } else {
+      return 'not expired';
+    }
+  }
   const cardsCookieValue = Cookies.get('top_ebay_auctions_hypernovasportscards');
   const initialCardDataValue = cardsCookieValue && cardsCookieValue !== "undefined" ? JSON.parse(cardsCookieValue) : [];
   const streamLocalStorageValue  = localStorage.getItem('stream_data_hypernovasportscards');
-  let initialStreamData;
+  let initialStreamData, streamDataTimestamp;
 
-  if (streamLocalStorageValue && streamLocalStorageValue != "undefined") {
+  // check local storage for data else initialize with empty array
+  if (streamLocalStorageValue) {
     let data = JSON.parse(streamLocalStorageValue);
     initialStreamData = data && data.data ? JSON.parse(data.data) : [];
+    streamDataTimestamp = data && data.expirationDate ? JSON.parse(data.expirationDate) : null;
   } else {
     initialStreamData = [];
   }
@@ -38,6 +44,8 @@ const LandingPage = (props) => {
 
   // check if we are using default streaming data
   const isUsingDefaultData = JSON.stringify(streamData) === JSON.stringify([]);
+  // if we are already using default data, return expired to fetch new data ELSE compare the timestamp to the expiration date on local storage
+  const localStorageDataExpiration = isUsingDefaultData ? 'expired' : checkExpiration (streamDataTimestamp);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -75,16 +83,17 @@ const LandingPage = (props) => {
     };
 
     const fetchLiveStreams = async () => {
-      const expirationDuration = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
-      const expirationDate = new Date(Date.now() + expirationDuration);
+     const createTimestamp = () => {
+        return Date.now();
+      }
       try {
       const liveStreamData = await getUpcomingStreams ();
-      const liveStreamStringData = JSON.stringify (liveStreamData);
       setStreamData (liveStreamData);
       const data = {
         data: JSON.stringify(liveStreamData),
-        expirationDate: expirationDate.getTime()
+        expirationDate: createTimestamp()
       };
+
       localStorage.setItem('stream_data_hypernovasportscards', JSON.stringify(data));
       return liveStreamData
       } catch (error) {
@@ -97,7 +106,7 @@ const LandingPage = (props) => {
       fetchData();
     }
     // get streaming data from whatnot
-    if (isUsingDefaultData) {
+    if (isUsingDefaultData || localStorageDataExpiration === 'expired') {
       fetchLiveStreams ();
     }
   }, []);
@@ -131,6 +140,7 @@ const LandingPage = (props) => {
       </div>
       <div id="main-section" className="landing-page-main">
         <span className="landing-page-text15">🎥 Upcoming Streams 🎥</span>
+        <br/>
         <Carousel items={streamData} />
         <br/>
         <span className="landing-page-text15">🔥 Hot Inventory 🔥</span>
