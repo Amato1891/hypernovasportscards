@@ -8,6 +8,7 @@ import PlaceCardList from '../components/PlaceCardList';
 import Cookies from 'js-cookie';
 import {getUpcomingStreams} from '../components/GetWhatnotStreams';
 import Carousel from '../components/LiveStreamCarousel';
+import { Link } from 'react-router-dom/cjs/react-router-dom';
 
 const LandingPage = (props) => {
   // cookie and local storage cache time control
@@ -171,13 +172,7 @@ const LandingPage = (props) => {
               </a>
             </div>
             <div className="landing-page-container2">
-              <a
-                href="/terms-and-conditions"
-                rel="noreferrer noopener"
-                className="landing-page-link11"
-              >
-                Terms and conditions
-              </a>
+            <Link to="/terms-and-conditions">Terms and Conditions</Link>
             </div>
           </div>
           <div className="landing-page-follow-container1">
