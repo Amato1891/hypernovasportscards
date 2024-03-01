@@ -6,6 +6,13 @@ import Navbar from '../components/Navbar'
 import './terms-and-conditions.css'
 
 const TermsAndConditions = (props) => {
+    const scrollToTop = () => {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth"
+        });
+      }
+      scrollToTop ();
   return (
     <body style={{backgroundColor:'black'}}>
     <div className="terms-container">
