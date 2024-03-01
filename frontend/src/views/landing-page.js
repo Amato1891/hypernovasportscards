@@ -172,8 +172,7 @@ const LandingPage = (props) => {
             </div>
             <div className="landing-page-container2">
               <a
-                href="https://example.com"
-                target="_blank"
+                href="/terms-and-conditions"
                 rel="noreferrer noopener"
                 className="landing-page-link11"
               >

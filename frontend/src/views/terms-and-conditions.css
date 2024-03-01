@@ -1,0 +1,46 @@
+/* terms-and-conditions.css */
+.terms-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    color: rgb(223, 223, 223);
+  }
+  
+  header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  main {
+    margin-bottom: 20px;
+  }
+  
+  h1 {
+    font-size: 24px;
+    margin-top: 10%;
+  }
+  
+  h2 {
+    margin-top: 20px;
+    font-size: 20px;
+  }
+  
+  p {
+    margin-bottom: 10px;
+  }
+  
+  ul {
+    list-style-type: none;
+    padding-left: 0;
+  }
+  
+  footer {
+    text-align: center;
+    font-size: 14px;
+    color: #777;
+  }
+  
+  .contact-us-links {
+    color: red;
+    font-weight: 500;
+  }

@@ -15,13 +15,11 @@ function Navbar() {
           <div className="landing-page-right-side">
             <div className="landing-page-links-container">
             <span className="landing-page-text">
-      {location.pathname !== '/about' ? (
-        <Link to="/about">About</Link>
-      ) : (
-        <Link to="/">Home</Link>
-      )}
-    </span>
-              <span className="landing-page-text02">Reviews</span>
+              {location.pathname !== '/' && <span className="landing-page-text"><Link to="/">Home</Link></span>}
+              {location.pathname !== '/about' && <span className="landing-page-text"><Link to="/about">About</Link></span>}
+              {location.pathname !== '/terms-and-conditions' && <span className="landing-page-text"><Link to="/terms-and-conditions">Terms and Conditions</Link></span>}
+          </span>
+              {/* <span className="landing-page-text02">Reviews</span> */}
             </div>
             <a href="#main-section" className="landing-page-link">
             </a>
@@ -49,14 +47,11 @@ function Navbar() {
               </div>
               <div className="landing-page-right-side1">
                 <div className="landing-page-links-container1">
-                <span className="landing-page-text">
-      {location.pathname !== '/about' ? (
-        <Link to="/about">About</Link>
-      ) : (
-        <Link to="/">Home</Link>
-      )}
-    </span>
-                  <span className="landing-page-text06">Reviews</span>
+                  {location.pathname !== '/' && <span className="landing-page-text"><Link to="/">Home</Link></span>}
+                  {location.pathname !== '/about' && <span className="landing-page-text"><Link to="/about">About</Link></span>}
+                  {location.pathname !== '/terms-and-conditions' && <span className="landing-page-text"><Link to="/terms-and-conditions">Terms and Conditions</Link></span>}
+          
+                  {/* <span className="landing-page-text06">Reviews</span> */}
                 </div>
                 <a href="#main-section" className="landing-page-link01">
                 </a>
