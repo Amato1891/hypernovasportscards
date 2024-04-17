@@ -14,6 +14,9 @@
   border-radius: 8px;
   overflow: hidden;
 }
+.place-card-price {
+  display: flex;
+}
 
 .skeleton-loading {
   background-color: #b4b4b4;
